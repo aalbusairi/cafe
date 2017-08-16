@@ -72,7 +72,7 @@ def bean_create(request):
 def bean_update(request, post_id):
 	if not (request.user.is_staff or request.user.is_superuser):
 		raise Http404
-	instance = get_object_or_404(Post, id=post_id)
+	instance = get_object_or_404(Bean, id=post_id)
 	form = BeanForm(request.POST or None, instance = instance)
 	if form.is_valid():
 		form.save()
