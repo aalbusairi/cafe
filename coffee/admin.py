@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+admin.site.register(Bean)
+admin.site.register(Powder)
+admin.site.register(Syrup)
+admin.site.register(Roast)
+admin.site.register(Coffee)
