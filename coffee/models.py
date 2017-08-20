@@ -46,7 +46,7 @@ class Coffee(models.Model):
 	milk = models.BooleanField(default=False)
 	foam = models.FloatField()
 	extrainstructions = models.TextField(null=True, blank=True)
-	price = models.DecimalField(max_digits=6, decimal_places=3)
+	price = models.DecimalField(max_digits=6, decimal_places=3, null=True)
 
 	def __str__(self):
 		return self.name

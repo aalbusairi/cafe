@@ -38,6 +38,5 @@ class SyrupForm(forms.ModelForm):
 class CoffeeForm(forms.ModelForm):
 	class Meta:
 		model = Coffee
-		fields = ['name','shots','bean','roast','syrups','powders','water','milk','foam','extrainstructions']						
-
-
+		fields = '__all__'
+		exclude = ['user', 'price']

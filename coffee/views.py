@@ -5,6 +5,19 @@ from django.contrib import messages
 from .models import *
 from .forms import *
 from django.http import Http404
+from decimal import Decimal
+
+def coffee_price(instance):
+	total_price = instance.bean.price + instance.roast.price + (instance.shots*Decimal(0.250))
+	if instance.milk:
+		total_price+= Decimal(0.100)
+	if instance.powders.all().count()>0:
+		for powders in instance.powders.all():
+			total_price+= powders.price
+	if instance.syrups.all().count()>0:
+		for syrups in instance.syrups.all():
+			total_price+= syrups.price
+	return total_price		
 
 def usersignup(request):
 	context = {}
@@ -247,8 +260,12 @@ def coffee_list(request):
 def coffee_create(request):
 	form = CoffeeForm(request.POST or None)
 	if form.is_valid():
-		user = request.user
-		form.save()
+		coffee = form.save(commit=False)
+		coffee.user = request.user
+		coffee.save()
+		form.save_m2m()
+		coffee.price = coffee_price(coffee)
+		coffee.save()
 		messages.success(request, "Successfully Created!")
 		return redirect("coffee:coffeelist")
 	context = {
@@ -258,12 +275,13 @@ def coffee_create(request):
 	return render(request, 'coffee_create.html', context)
 
 def coffee_update(request, post_id):
-	if not (request.user.is_staff or request.user.is_superuser):
-		raise Http404
 	instance = get_object_or_404(Coffee, id=post_id)
 	form = CoffeeForm(request.POST or None, instance = instance)
 	if form.is_valid():
-		form.save()
+		coffee = form.save(commit=False)
+		coffee.user = request.user
+		coffee.save()
+		form.save_m2m()
 		messages.success(request, "Successfully Updated!")
 		return redirect("coffee:coffeelist")
 	context = {
