@@ -24,5 +24,6 @@ urlpatterns = [
 	url(r'^syrupdelete/(?P<post_id>\d+)/$', views.syrup_delete, name="syrupdelete"),
 	url(r'^coffeelist/$', views.coffee_list, name="coffeelist"),
 	url(r'^coffeeupdate/(?P<post_id>\d+)/$', views.coffee_update, name="coffeeupdate"),
-	url(r'^coffeedelete/(?P<post_id>\d+)/$', views.coffee_delete, name="coffeedelete"),		
+	url(r'^coffeedelete/(?P<post_id>\d+)/$', views.coffee_delete, name="coffeedelete"),
+	url(r'^coffeedetail/(?P<post_id>\d+)/$', views.coffee_detail, name="coffeedetail"),	
 ]

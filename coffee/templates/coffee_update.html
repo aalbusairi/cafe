@@ -9,6 +9,6 @@ Coffee Update
 	<form action="{% url 'coffee:coffeeupdate' post_id=instance.id %}" method="POST">
 		{% csrf_token %}
 		{{form|crispy}}
-		<input class = "btn btn-primary" type="submit" value="Create">
+		<input class = "btn btn-primary" type="submit" value="Update">
 	</form>
 {% endblock content %}

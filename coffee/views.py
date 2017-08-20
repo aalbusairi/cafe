@@ -71,6 +71,7 @@ def bean_create(request):
 	if form.is_valid():
 		form.save()
 		messages.success(request, "Successfully Created!")
+		return redirect("coffee:beanlist")
 	context = {
 	"title": "Bean",
 	"form": form,
@@ -84,7 +85,8 @@ def bean_update(request, post_id):
 	form = BeanForm(request.POST or None, instance = instance)
 	if form.is_valid():
 		form.save()
-		messages.success(request, "Successfully Created!")
+		messages.success(request, "Successfully Updated!")
+		return redirect("coffee:beanlist")
 	context = {
 	"title": "Bean",
 	"form": form,
@@ -113,7 +115,8 @@ def powder_create(request):
 	form = PowderForm(request.POST or None)
 	if form.is_valid():
 		form.save()
-		messages.success(request, "Successfully Created!")	
+		messages.success(request, "Successfully Created!")
+		return redirect("coffee:powderlist")
 	context = {
 	"title": "Powder",
 	"form": form,
@@ -127,7 +130,8 @@ def powder_update(request, post_id):
 	form = PowderForm(request.POST or None, instance = instance)
 	if form.is_valid():
 		form.save()
-		messages.success(request, "Successfully Created!")
+		messages.success(request, "Successfully Updated!")
+		return redirect("coffee:powderlist")
 	context = {
 	"title": "Powder",
 	"form": form,
@@ -156,7 +160,8 @@ def roast_create(request):
 	form = RoastForm(request.POST or None)
 	if form.is_valid():
 		form.save()
-		messages.success(request, "Successfully Created!")	
+		messages.success(request, "Successfully Created!")
+		return redirect("coffee:roastlist")
 	context = {
 	"title": "Roast",
 	"form": form,
@@ -170,7 +175,8 @@ def roast_update(request, post_id):
 	form = RoastForm(request.POST or None, instance = instance)
 	if form.is_valid():
 		form.save()
-		messages.success(request, "Successfully Created!")
+		messages.success(request, "Successfully Updated!")
+		return redirect("coffee:roastlist")
 	context = {
 	"title": "Roast",
 	"form": form,
@@ -199,7 +205,8 @@ def syrup_create(request):
 	form = SyrupForm(request.POST or None)
 	if form.is_valid():
 		form.save()
-		messages.success(request, "Successfully Created!")	
+		messages.success(request, "Successfully Created!")
+		return redirect("coffee:syruplist")
 	context = {
 	"title": "Syrup",
 	"form": form,
@@ -213,7 +220,8 @@ def syrup_update(request, post_id):
 	form = SyrupForm(request.POST or None, instance = instance)
 	if form.is_valid():
 		form.save()
-		messages.success(request, "Successfully Created!")
+		messages.success(request, "Successfully Updated!")
+		return redirect("coffee:syruplist")
 	context = {
 	"title": "Syrup",
 	"form": form,
@@ -241,7 +249,8 @@ def coffee_create(request):
 	if form.is_valid():
 		user = request.user
 		form.save()
-		messages.success(request, "Successfully Created!")	
+		messages.success(request, "Successfully Created!")
+		return redirect("coffee:coffeelist")
 	context = {
 	"title": "Coffee",
 	"form": form,
@@ -255,7 +264,8 @@ def coffee_update(request, post_id):
 	form = CoffeeForm(request.POST or None, instance = instance)
 	if form.is_valid():
 		form.save()
-		messages.success(request, "Successfully Created!")
+		messages.success(request, "Successfully Updated!")
+		return redirect("coffee:coffeelist")
 	context = {
 	"title": "Coffee",
 	"form": form,
@@ -267,7 +277,17 @@ def coffee_delete(request, post_id):
 	instance = get_object_or_404(Coffee, id=post_id)
 	instance.delete()
 	messages.success(request, "Successfully Deleted!")
-	return redirect("coffee:coffeelist")			
+	return redirect("coffee:coffeelist")
+
+def coffee_detail(request, post_id):
+	instance = get_object_or_404(Coffee, id=post_id)
+
+	context = {
+	"instance":instance,
+	}
+
+	return render(request, 'coffee_detail.html', context)
+
 
 
 				

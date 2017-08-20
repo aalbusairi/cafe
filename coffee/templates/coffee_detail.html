@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br><br><br>
+<div class="row">
+	<div class="col-sm-6">
+		<div class="thumbnail">
+		<div class="caption">
+			<h3>{{instance.name}}</h3>
+		</div>
+		<ul>
+			<li>Shots: {{instance.shots}}</li>
+			<li>Bean: {{instance.bean}}</li>
+			<li>Roast: {{instance.roast}}</li>
+			<li>Syrups:
+			{% for syrup in instance.syrups.all  %}
+			{{syrup.name}},
+			{% endfor %}
+			</li>
+			<li>Powders:
+			{% for powder in instance.powders.all  %}
+			{{powder.name}},
+			{% endfor %}
+			</li>
+			<li>Water: {{instance.water}} ml</li>
+			{% if instance.milk %}
+			<li>Milk Added</li>
+			{% else %}
+			<li>No Milk Added</li>
+			{% endif %}
+			<li>Foam: {{instance.foam}} mm</li>
+			<li>Extra Instructions: {{instance.extrainstructions}}</li>
+			<li>{{instance.price}} KWD</li>
+		</ul>	
+		</div>
+	</div>
+</div>	
+	
+{% endblock content %}

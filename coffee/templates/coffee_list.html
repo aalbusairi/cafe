@@ -7,8 +7,9 @@
 {% for object in object_list %}
 	<div class="col-sm-6">
 	<br><br><br>
-				<p>{{object.name}},{{object.price}}</p>
+				<p>{{object.name}} - {{object.price}} KWD</p>
 				<p>
+				  <a href="{{object.get_absolute_url}}" class="btn btn-primary">View</a>
 				  <a href="{% url 'coffee:coffeeupdate' post_id=object.id %}" class="btn btn-success">Edit</a>
 				  <a href="{% url 'coffee:coffeedelete' post_id=object.id %}" class="btn btn-danger">Delete</a>
 				</p>
