@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+	
+
+
+{% for object in object_list %}
+	<div class="col-sm-6">
+	<br><br><br>
+				<p>{{object.name}},{{object.price}}</p>
+				<p>
+				  <a href="{% url 'coffee:beanupdate' post_id=object.id %}" class="btn btn-success">Edit</a>
+				  <a href="{% url 'coffee:beandelete' post_id=object.id %}" class="btn btn-danger">Delete</a>
+				</p>
+			</div>
+{% endfor %}
+
+{% endblock content %}

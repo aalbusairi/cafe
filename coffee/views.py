@@ -55,6 +55,14 @@ def userlogout(request):
 	logout(request)
 	return redirect("coffee:login")
 
+def bean_list(request):
+	object_list = Bean.objects.all()
+
+	context = {
+	"object_list": object_list
+	}
+
+	return render(request, 'bean_list.html', context)	
 
 def bean_create(request):
 	if not (request.user.is_staff or request.user.is_superuser):
@@ -80,8 +88,24 @@ def bean_update(request, post_id):
 	context = {
 	"title": "Bean",
 	"form": form,
+	'instance': instance,
 	}
-	return render(request, 'bean_update.html', context)	
+	return render(request, 'bean_update.html', context)
+
+def bean_delete(request, post_id):
+	instance = get_object_or_404(Bean, id=post_id)
+	instance.delete()
+	messages.success(request, "Successfully Deleted!")
+	return redirect("coffee:beanlist")
+
+def powder_list(request):
+	object_list = Powder.objects.all()
+
+	context = {
+	"object_list": object_list
+	}
+
+	return render(request, 'powder_list.html', context)		
 
 def powder_create(request):
 	if not (request.user.is_staff or request.user.is_superuser):
@@ -96,6 +120,36 @@ def powder_create(request):
 	}
 	return render(request, 'powder_create.html', context)
 
+def powder_update(request, post_id):
+	if not (request.user.is_staff or request.user.is_superuser):
+		raise Http404
+	instance = get_object_or_404(Powder, id=post_id)
+	form = PowderForm(request.POST or None, instance = instance)
+	if form.is_valid():
+		form.save()
+		messages.success(request, "Successfully Created!")
+	context = {
+	"title": "Powder",
+	"form": form,
+	'instance': instance,
+	}
+	return render(request, 'powder_update.html', context)
+
+def powder_delete(request, post_id):
+	instance = get_object_or_404(Powder, id=post_id)
+	instance.delete()
+	messages.success(request, "Successfully Deleted!")
+	return redirect("coffee:powderlist")
+
+def roast_list(request):
+	object_list = Roast.objects.all()
+
+	context = {
+	"object_list": object_list
+	}
+
+	return render(request, 'roast_list.html', context)				
+
 def roast_create(request):
 	if not (request.user.is_staff or request.user.is_superuser):
 		raise Http404	
@@ -108,6 +162,36 @@ def roast_create(request):
 	"form": form,
 	}
 	return render(request, 'roast_create.html', context)
+
+def roast_update(request, post_id):
+	if not (request.user.is_staff or request.user.is_superuser):
+		raise Http404
+	instance = get_object_or_404(Roast, id=post_id)
+	form = RoastForm(request.POST or None, instance = instance)
+	if form.is_valid():
+		form.save()
+		messages.success(request, "Successfully Created!")
+	context = {
+	"title": "Roast",
+	"form": form,
+	'instance': instance,
+	}
+	return render(request, 'roast_update.html', context)
+
+def roast_delete(request, post_id):
+	instance = get_object_or_404(Roast, id=post_id)
+	instance.delete()
+	messages.success(request, "Successfully Deleted!")
+	return redirect("coffee:roastlist")
+
+def syrup_list(request):
+	object_list = Syrup.objects.all()
+
+	context = {
+	"object_list": object_list
+	}
+
+	return render(request, 'syrup_list.html', context)		
 
 def syrup_create(request):
 	if not (request.user.is_staff or request.user.is_superuser):
@@ -122,6 +206,36 @@ def syrup_create(request):
 	}
 	return render(request, 'syrup_create.html', context)
 
+def syrup_update(request, post_id):
+	if not (request.user.is_staff or request.user.is_superuser):
+		raise Http404
+	instance = get_object_or_404(Syrup, id=post_id)
+	form = SyrupForm(request.POST or None, instance = instance)
+	if form.is_valid():
+		form.save()
+		messages.success(request, "Successfully Created!")
+	context = {
+	"title": "Syrup",
+	"form": form,
+	'instance': instance,
+	}
+	return render(request, 'syrup_update.html', context)
+
+def syrup_delete(request, post_id):
+	instance = get_object_or_404(Syrup, id=post_id)
+	instance.delete()
+	messages.success(request, "Successfully Deleted!")
+	return redirect("coffee:syruplist")
+
+def coffee_list(request):
+	object_list = Coffee.objects.all()
+
+	context = {
+	"object_list": object_list
+	}
+
+	return render(request, 'coffee_list.html', context)	
+
 def coffee_create(request):
 	form = CoffeeForm(request.POST or None)
 	if form.is_valid():
@@ -132,7 +246,28 @@ def coffee_create(request):
 	"title": "Coffee",
 	"form": form,
 	}
-	return render(request, 'coffee_create.html', context)	
+	return render(request, 'coffee_create.html', context)
+
+def coffee_update(request, post_id):
+	if not (request.user.is_staff or request.user.is_superuser):
+		raise Http404
+	instance = get_object_or_404(Coffee, id=post_id)
+	form = CoffeeForm(request.POST or None, instance = instance)
+	if form.is_valid():
+		form.save()
+		messages.success(request, "Successfully Created!")
+	context = {
+	"title": "Coffee",
+	"form": form,
+	'instance': instance,
+	}
+	return render(request, 'coffee_update.html', context)
+
+def coffee_delete(request, post_id):
+	instance = get_object_or_404(Coffee, id=post_id)
+	instance.delete()
+	messages.success(request, "Successfully Deleted!")
+	return redirect("coffee:coffeelist")			
 
 
 				

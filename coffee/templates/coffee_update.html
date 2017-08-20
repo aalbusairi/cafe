@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block title %}
-Bean Update
+Coffee Update
 {% endblock title %}
 
 
 {% block content %}
-	<form action="{% url 'coffee:beanupdate' post_id=instance.id %}" method="POST">
+	<form action="{% url 'coffee:coffeeupdate' post_id=instance.id %}" method="POST">
 		{% csrf_token %}
 		{{form|crispy}}
 		<input class = "btn btn-primary" type="submit" value="Create">
