@@ -11,6 +11,7 @@ urlpatterns = [
 	url(r'^syrup/$', views.syrup_create, name="syrup"),
 	url(r'^roast/$', views.roast_create, name="roast"),
 	url(r'^coffee/$', views.coffee_create, name="coffee"),
+	url(r'^adress/$', views.adress_create, name="adress"),
 
 	url(r'^beanlist/$', views.bean_list, name="beanlist"),
 	url(r'^beanupdate/(?P<post_id>\d+)/$', views.bean_update, name="beanupdate"),
@@ -31,5 +32,10 @@ urlpatterns = [
 	url(r'^coffeelist/$', views.coffee_list, name="coffeelist"),
 	url(r'^coffeeupdate/(?P<post_id>\d+)/$', views.coffee_update, name="coffeeupdate"),
 	url(r'^coffeedelete/(?P<post_id>\d+)/$', views.coffee_delete, name="coffeedelete"),
-	url(r'^coffeedetail/(?P<post_id>\d+)/$', views.coffee_detail, name="coffeedetail"),	
+	url(r'^coffeedetail/(?P<post_id>\d+)/$', views.coffee_detail, name="coffeedetail"),
+
+	url(r'^adresslist/$', views.adress_list, name="adresslist"),
+	url(r'^adressupdate/(?P<post_id>\d+)/$', views.adress_update, name="adressupdate"),
+	url(r'^adressdelete/(?P<post_id>\d+)/$', views.adress_delete, name="adressdelete"),
+	# url(r'^coffeedetail/(?P<post_id>\d+)/$', views.coffee_detail, name="coffeedetail"),
 ]

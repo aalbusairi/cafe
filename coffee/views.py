@@ -306,9 +306,52 @@ def coffee_detail(request, post_id):
 
 	return render(request, 'coffee_detail.html', context)
 
+def adress_list(request):
+	object_list = Adress.objects.all()
+
+	context = {
+	"object_list": object_list
+	}
+
+	return render(request, 'adress_list.html', context)		
+
+def adress_create(request):
+	form = AdressForm(request.POST or None)
+	if form.is_valid():
+		adress = form.save(commit=False)
+		adress.user = request.user
+		adress.save()
+		messages.success(request, "Successfully Created!")
+		return redirect("coffee:adresslist")
+	context = {
+	"title": "Adress",
+	"form": form,
+	}
+	return render(request, 'adress_create.html', context)
+
+def adress_update(request, post_id):
+	instance = get_object_or_404(Adress, id=post_id)
+	form = AdressForm(request.POST or None, instance = instance)
+	if form.is_valid():
+		adress = form.save(commit=False)
+		adress.user = request.user
+		adress.save()
+		messages.success(request, "Successfully Updated!")
+		return redirect("coffee:adresslist")
+	context = {
+	"title": "Adress",
+	"form": form,
+	'instance': instance
+	}
+	return render(request, 'adress_update.html', context)
+
+def adress_delete(request, post_id):
+	instance = get_object_or_404(Adress, id=post_id)
+	instance.delete()
+	messages.success(request, "Successfully Deleted!")
+	return redirect("coffee:adresslist")			
 
 
-				
 
 
 

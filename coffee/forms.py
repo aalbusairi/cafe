@@ -40,3 +40,8 @@ class CoffeeForm(forms.ModelForm):
 		model = Coffee
 		fields = '__all__'
 		exclude = ['user', 'price']
+
+class AdressForm(forms.ModelForm):
+	class Meta:
+		model = Adress
+		fields = '__all__'

@@ -52,7 +52,28 @@ class Coffee(models.Model):
 		return self.name
 
 	def get_absolute_url(self):
-		return reverse("coffee:coffeedetail", kwargs={"post_id": self.id})	
+		return reverse("coffee:coffeedetail", kwargs={"post_id": self.id})
+
+class City(models.Model):
+	name = models.CharField(max_length=20)
+
+	def __str__(self):
+		return self.name
+
+class Adress(models.Model):
+	user = models.ForeignKey(User, default = 1)
+	name = models.CharField(max_length=20, default=1)
+	city = models.ForeignKey(City, default = 1)
+	block = models.CharField(max_length=20)
+	street = models.CharField(max_length=20)
+	building = models.CharField(max_length=20, blank=True)
+	floor = models.CharField(max_length=20, blank=True)
+	apt_number = models.CharField(max_length=20, blank=True)
+	extra_directions = models.TextField(null = True, blank=True)
+
+	def __str__(self):
+		return self.name
+
 
 
 
