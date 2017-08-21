@@ -4,8 +4,11 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib import messages
 from .models import *
 from .forms import *
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from decimal import Decimal
+import json
+
+
 
 def coffee_price(instance):
 	total_price = instance.bean.price + instance.roast.price + (instance.shots*Decimal(0.250))
@@ -351,8 +354,35 @@ def adress_delete(request, post_id):
 	messages.success(request, "Successfully Deleted!")
 	return redirect("coffee:adresslist")			
 
+def coffee_pricecalc(request):
+	
+	total = Decimal(0)
 
+	bean_id = request.GET.get('bean')
+	if bean_id:
+		total+= Bean.objects.get(id=bean_id).price
 
+	roast_id = request.GET.get('roast')
+	if roast_id:
+		total+= Roast.objects.get(id=roast_id).price	
+
+	shots = request.GET.get('shots')
+	total += Decimal(int(shots) * 0.200)
+
+	milk = request.GET.get('milk')
+	if milk == 'true':
+		total += Decimal(0.250)
+
+	syrups = json.loads(request.GET.get('syrups'))
+	for syrup in syrups:
+		total += Syrup.objects.get(id=syrup).price
+
+	powders = json.loads(request.GET.get('powders'))
+	for powder in powders:
+		total += Powder.objects.get(id=powder).price
+
+	print (round(total, 3))
+	return JsonResponse("Price", safe=False)
 
 
 
