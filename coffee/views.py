@@ -252,7 +252,7 @@ def syrup_delete(request, post_id):
 	return redirect("coffee:syruplist")
 
 def coffee_list(request):
-	object_list = Coffee.objects.all()
+	object_list = Coffee.objects.filter(user=request.user)
 
 	context = {
 	"object_list": object_list
@@ -382,7 +382,7 @@ def coffee_pricecalc(request):
 		total += Powder.objects.get(id=powder).price
 
 	print (round(total, 3))
-	return JsonResponse("Price", safe=False)
+	return JsonResponse(round(total, 3), safe=False)
 
 
 

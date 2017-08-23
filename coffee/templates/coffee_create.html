@@ -10,7 +10,7 @@ Coffee Create
 		{% csrf_token %}
 		{{form|crispy}}
 
-		<h3>Price: <span>0.000</span> KWD</h3>
+		<h3>Price: <span id="total" >0.000</span> KWD</h3>
 		<input class = "btn btn-primary" type="submit" value="Create">
 	</form>
 
@@ -34,7 +34,7 @@ function price(){
 	{
 		if(syrups.options[i].selected)
 		{
-			selected_syrups.push(syrups.option[i].value);
+			selected_syrups.push(syrups.options[i].value);
 		}	
 	}	
 
@@ -45,7 +45,7 @@ function price(){
 	{
 		if(powders.options[i].selected)
 		{
-			selected_powders.push(powders.option[i].value);
+			selected_powders.push(powders.options[i].value);
 		}	
 	}
 
@@ -66,6 +66,8 @@ function price(){
 		},
 		success: function(data){
 			console.log(data);
+			document.getElementById("total").innerHTML=data
+			;
 		},
 	});
 
