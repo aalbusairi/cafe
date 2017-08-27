@@ -26,5 +26,5 @@ def checkout(request):
 
 	if order.address == None:
 		return redirect("coffee:adressselect")
-	return redirect("/") #payment page			
+	return redirect("payment:pay", order_id=order.id) #payment page			
 	

@@ -1,0 +1,4 @@
+Django==1.11
+django-crispy-forms==1.6.1
+pytz==2017.2
+suds-jurko==0.6

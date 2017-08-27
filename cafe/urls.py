@@ -7,6 +7,7 @@ urlpatterns = [
 	url(r'^admin/', admin.site.urls),
 	url(r'^coffee/', include('coffee.urls', namespace="coffee")),
 	url(r'^cart/', include('cart.urls', namespace="cart")),
+	url(r'^payment/', include('payment.urls', namespace="payment")),
 ]
 
 if settings.DEBUG:
