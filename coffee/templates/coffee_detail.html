@@ -31,7 +31,12 @@
 			<li>Foam: {{instance.foam}} mm</li>
 			<li>Extra Instructions: {{instance.extrainstructions}}</li>
 			<li>{{instance.price}} KWD</li>
-		</ul>	
+		</ul>
+		  <form action="{% url 'cart:mycart' %}" method="GET">
+		  	<input type="hidden" name="item" value="{{instance.id}}">
+		  	<input type="hidden" name="qty" value="1">
+		  	<input type="submit" class="btn btn-default" value="Add to Cart">
+		  </form>
 		</div>
 	</div>
 </div>	

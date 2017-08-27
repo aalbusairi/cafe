@@ -12,8 +12,13 @@
 				  <a href="{{object.get_absolute_url}}" class="btn btn-primary">View</a>
 				  <a href="{% url 'coffee:coffeeupdate' post_id=object.id %}" class="btn btn-success">Edit</a>
 				  <a href="{% url 'coffee:coffeedelete' post_id=object.id %}" class="btn btn-danger">Delete</a>
+				  <form action="{% url 'cart:mycart' %}" method="GET">
+				  	<input type="hidden" name="item" value="{{object.id}}">
+				  	<input type="hidden" name="qty" value="1">
+				  	<input type="submit" class="btn btn-default" value="Add to Cart">
+				  </form>
 				</p>
-			</div>
+			</div> 
 {% endfor %}
 
 {% endblock content %}

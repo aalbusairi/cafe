@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+	
+<div class="row">
+	<div class="col-sm-12">
+		{% if cart.cartitem_set.count < 1 %}
+			<h1> Your Cart is empty <small>Please Continue Shopping</small></h1>
+		{% else %}
+		<h1>Your Cart:</h1>
+		<table class="table">
+				{% for item in cart.cartitem_set.all  %}
+					<tr>
+						<td>{{item.item.name}}</td>
+						<td>
+					<form action="{% url 'cart:mycart' %}" method="GET">
+					  	<input type="hidden" name="item" value="{{item.item.id}}">
+					  	<input type="number" name="qty" value="{{item.quantity}}">
+					  	<input type="submit" class="btn btn-default" value="Update Item">
+				  	</form>
+						</td>
+						<td>{{item.line_item_total}}</td>
+					</tr>
+				{% endfor %}
+				<tr><td>Subtotal: {{cart.subtotal}}</td></tr><br>
+				<tr><td>Delivery Total: {{cart.delivery_total}}</td></tr><br>
+				<tr><td>Total: {{cart.total}}</td></tr><br>
+				<tr><td><a href="{% url 'cart:checkout' %}" class="btn btn-success" >Pay</td></tr><br>
+
+		</table>			
+		{% endif %}
+	</div>
+</div>
+
+	
+{% endblock content %}
+	

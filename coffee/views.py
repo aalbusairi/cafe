@@ -7,6 +7,7 @@ from .forms import *
 from django.http import Http404, JsonResponse
 from decimal import Decimal
 import json
+from cart.models import Order
 
 
 
@@ -41,7 +42,7 @@ def usersignup(request):
 
 			
 		messages.error(request, form.errors)
-		return redirect("coffee:signup")
+		return redirect("coffee:login")
 	return render(request, 'signup.html', context)
 
 def userlogin(request):
@@ -64,7 +65,7 @@ def userlogin(request):
 			messages.error(request, "Wrong username/password combination. Please try again.")
 			return redirect("coffee:login")
 		messages.error(request, form.errors)
-		return redirect("coffee:login")
+		return redirect("coffee:coffeelist")
 	return render(request, 'login.html', context)
 
 def userlogout(request):
@@ -325,7 +326,7 @@ def adress_create(request):
 		adress.user = request.user
 		adress.save()
 		messages.success(request, "Successfully Created!")
-		return redirect("coffee:adresslist")
+		return redirect("coffee:adressselect")
 	context = {
 	"title": "Adress",
 	"form": form,
@@ -352,7 +353,27 @@ def adress_delete(request, post_id):
 	instance = get_object_or_404(Adress, id=post_id)
 	instance.delete()
 	messages.success(request, "Successfully Deleted!")
-	return redirect("coffee:adresslist")			
+	return redirect("coffee:adresslist")
+
+def select_adress(request):
+	if Adress.objects.filter(user=request.user).count()<1:
+		return redirect("coffee:adress")
+	form = AdressSelectForm()
+	form.fields['adress'].queryset = Adress.objects.filter(user=request.user)
+	if request.method == 'POST':
+		form = AdressSelectForm(request.POST)	
+		if form.is_valid():
+			adress = form.cleaned_data['adress']
+			order = Order.objects.get(user=request.user)
+			order.address = adress
+			order.save()
+			return redirect("cart:checkout")
+
+	context = {
+		'form':form
+	}					
+
+	return render(request, 'select_adress.html', context)
 
 def coffee_pricecalc(request):
 	
@@ -383,6 +404,10 @@ def coffee_pricecalc(request):
 
 	print (round(total, 3))
 	return JsonResponse(round(total, 3), safe=False)
+
+
+
+
 
 
 

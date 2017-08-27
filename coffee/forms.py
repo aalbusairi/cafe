@@ -45,3 +45,10 @@ class AdressForm(forms.ModelForm):
 	class Meta:
 		model = Adress
 		fields = '__all__'
+		exclude = ['user']
+
+class AdressSelectForm(forms.Form):
+	adress = forms.ModelChoiceField(
+		queryset = Adress.objects.all(),
+		empty_label=None
+		)

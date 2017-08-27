@@ -37,6 +37,7 @@ urlpatterns = [
 	url(r'^adresslist/$', views.adress_list, name="adresslist"),
 	url(r'^adressupdate/(?P<post_id>\d+)/$', views.adress_update, name="adressupdate"),
 	url(r'^adressdelete/(?P<post_id>\d+)/$', views.adress_delete, name="adressdelete"),
+	url(r'^adressselect/$', views.select_adress, name="adressselect"),
 	# url(r'^coffeedetail/(?P<post_id>\d+)/$', views.coffee_detail, name="coffeedetail"),
 
 	url(r'^price/$', views.coffee_pricecalc, name="price"),
